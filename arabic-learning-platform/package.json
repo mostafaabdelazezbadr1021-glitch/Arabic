@@ -1,0 +1,17 @@
+{
+  "name": "arabic-learning-platform",
+  "version": "1.0.0",
+  "description": "منصة لغتي الجميلة - منهج اللغة العربية للصف الأول الثانوي الفني (الفصل الدراسي الأول)",
+  "private": true,
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "arabic",
+    "education",
+    "learning-platform",
+    "egyptian-curriculum"
+  ],
+  "author": "Mostafa Badr",
+  "license": "MIT"
+}

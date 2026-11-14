@@ -1,0 +1,353 @@
+/* ==========================================================================
+   منصة لغتي التعليمية - المرحلة الثانوية الفنية
+   تصميم مخصص فائق الجودة يدعم اللغة العربية RTL والوضعين النهاري والليلي
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* الوضع النهاري: ألوان العاج، البيج الدافئ، الأخضر الزمردي الهادئ، والذهب المعتق */
+  --bg-main: #FAF8F5;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #F4EFEA;
+  --border-subtle: #EAE3D9;
+  --border-focus: #D4AF37;
+  
+  --text-primary: #1C1917;
+  --text-secondary: #57534E;
+  --text-muted: #857F77;
+  --text-accent: #0F5132;
+  
+  --primary: #1B4D3E; /* أخضر أندلسي ملكي */
+  --primary-hover: #153E32;
+  --primary-light: #EBF3F0;
+  
+  --secondary: #936B2B; /* ذهبي معتق رصين */
+  --secondary-hover: #7D5B23;
+  --secondary-light: #FBF7EE;
+  
+  --accent: #B45309; /* عنبري دافئ للتركيز */
+  --accent-light: #FEF3C7;
+  
+  --success: #15803D;
+  --success-bg: #DCFCE7;
+  --danger: #B91C1C;
+  --danger-bg: #FEE2E2;
+  --warning: #D97706;
+  --warning-bg: #FEF3C7;
+  --info: #0284C7;
+  --info-bg: #E0F2FE;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(28, 25, 23, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(28, 25, 23, 0.07), 0 2px 4px -2px rgba(28, 25, 23, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(28, 25, 23, 0.08), 0 4px 6px -4px rgba(28, 25, 23, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(28, 25, 23, 0.09), 0 8px 10px -6px rgba(28, 25, 23, 0.05);
+  
+  --font-sans: 'Alexandria', 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
+  --font-poetry: 'Amiri', serif;
+}
+
+/* الوضع الليلي: فحم عميق، أسطح دافئة مريحة غير باهتة، تباين رصين وأنيق */
+[data-theme="dark"] {
+  --bg-main: #121417;
+  --bg-surface: #1A1D23;
+  --bg-card: #20242B;
+  --bg-subtle: #272C35;
+  --border-subtle: #313742;
+  --border-focus: #E2B755;
+  
+  --text-primary: #F3F4F6;
+  --text-secondary: #CBD5E1;
+  --text-muted: #8E9BAE;
+  --text-accent: #6EE7B7;
+  
+  --primary: #34D399; /* أخضر زمردي ناصع هادئ */
+  --primary-hover: #10B981;
+  --primary-light: #064E3B;
+  
+  --secondary: #FBBF24; /* ذهب دافئ */
+  --secondary-hover: #F59E0B;
+  --secondary-light: #78350F;
+  
+  --accent: #F97316;
+  --accent-light: #431407;
+  
+  --success: #34D399;
+  --success-bg: rgba(16, 185, 129, 0.18);
+  --danger: #F87171;
+  --danger-bg: rgba(239, 68, 68, 0.18);
+  --warning: #FBBF24;
+  --warning-bg: rgba(245, 158, 11, 0.18);
+  --info: #38BDF8;
+  --info-bg: rgba(56, 189, 248, 0.18);
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.55), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.65), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+}
+
+/* أساسيات الصفحة والخطوط */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  direction: rtl;
+  text-align: right;
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  line-height: 1.75;
+  font-size: 15px;
+}
+
+/* طباعة الشعر العربي الأصيل */
+.arabic-poetry {
+  font-family: var(--font-poetry);
+  font-size: 1.25rem;
+  line-height: 2.3;
+}
+
+.poetry-verse {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  background-color: var(--bg-subtle);
+  border-radius: 0.75rem;
+  border-right: 4px solid var(--secondary);
+  transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .poetry-verse {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
+
+.poetry-verse:hover {
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.verse-separator {
+  color: var(--secondary);
+  font-weight: bold;
+  opacity: 0.8;
+  font-size: 1.1rem;
+}
+
+/* شريط التمرير المخصص */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-subtle);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* تأثيرات انتقالية للبطاقات والصفحات */
+.fade-in {
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* بطاقات المنهج التحريرية العريقة */
+.editorial-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.editorial-card:hover {
+  border-color: var(--secondary);
+  box-shadow: var(--shadow-md);
+}
+
+/* الأوسمة والشارات التفاعلية */
+.badge-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-glow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent,
+    rgba(212, 175, 55, 0.15),
+    transparent
+  );
+  transform: rotate(30deg);
+  animation: shimmer 4s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(30deg); }
+  100% { transform: translateX(100%) rotate(30deg); }
+}
+
+/* مربعات الإعراب التفاعلية */
+.parsing-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.parsing-table th {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  text-align: right;
+  border-bottom: 2px solid var(--border-subtle);
+}
+
+.parsing-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-card);
+}
+
+.parsing-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* الطباعة الورقية والمراجعة */
+@media print {
+  header, footer, .no-print, button:not(.printable-action) {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+  }
+  .editorial-card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+}
+
+/* ==========================================
+   أيقونة الشعار الفخمة والمبتكرة (Brand Logo Icon)
+   ========================================== */
+.brand-logo-icon {
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.875rem;
+  background: linear-gradient(135deg, #093325 0%, #154737 45%, #052319 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px -2px rgba(15, 81, 50, 0.4), 
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+  border: 1.5px solid rgba(212, 175, 55, 0.6);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-logo-icon:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 20px -2px rgba(15, 81, 50, 0.55), 
+              inset 0 1px 2px 0 rgba(255, 255, 255, 0.4);
+  border-color: rgba(212, 175, 55, 0.9);
+}
+
+/* إطار هندسي عربي داخلي دقيق */
+.brand-logo-icon::before {
+  content: '';
+  position: absolute;
+  inset: 2.5px;
+  border-radius: 0.65rem;
+  border: 1px dashed rgba(212, 175, 55, 0.35);
+  pointer-events: none;
+}
+
+/* توهج ضوئي ذهبي رقيق في الزاوية العلوية */
+.brand-logo-icon::after {
+  content: '';
+  position: absolute;
+  top: -35%;
+  right: -35%;
+  width: 75%;
+  height: 75%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* الحرف الذهبي الملكي المصقول */
+.brand-logo-letter {
+  font-family: 'Amiri', 'Alexandria', serif;
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(180deg, #FFF8DB 0%, #F5CE62 50%, #D4AF37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  position: relative;
+  z-index: 2;
+  margin-top: -2px;
+}
+
+/* ==========================================
+   تنسيقات نافذة تأسيس النحو الشاملة (Modal CSS)
+   خالية تماماً من الضبابية الحادة المزعجة
+   ========================================== */
+#grammar-stage-modal {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#grammar-stage-modal.hidden {
+  display: none !important;
+}

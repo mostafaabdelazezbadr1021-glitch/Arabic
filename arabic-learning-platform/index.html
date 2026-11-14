@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة اللغة العربية | الصف الأول الثانوي الفني (الفصل الدراسي الأول)</title>
+  <meta name="description" content="المنصة التعليمية الشاملة المعتمدة لمادة اللغة العربية لطلاب التعليم الفني: صناعي، تجاري، زراعي، وفندقي.">
+
+  <!-- الخطوط العربية الراقية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Alexandria', 'IBM Plex Sans Arabic', 'sans-serif'],
+            serif: ['Amiri', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Canvas Confetti للاحتفالات -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- التنسيقات المخصصة والوضعين النهاري والليلي -->
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="bg-[var(--bg-main)] text-[var(--text-primary)] antialiased min-h-screen flex flex-col transition-colors duration-300">
+
+  <!-- ==========================================
+       الترويسة العلوية وشريط التنقل (Header & Nav)
+       ========================================== -->
+  <header class="sticky top-0 z-40 bg-[var(--bg-surface)]/90 backdrop-blur-md border-b border-[var(--border-subtle)] transition-colors duration-300 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- الشعار والعنوان -->
+        <div class="flex items-center gap-3 cursor-pointer py-1" onclick="App.renderView('home')">
+          <div class="brand-logo-icon shrink-0">
+            <span class="brand-logo-letter">م</span>
+          </div>
+          <div class="pt-0.5">
+            <span class="text-base sm:text-lg font-black text-stone-900 dark:text-stone-100 block leading-normal">
+              لُغَتِي الجَمِيلَة
+            </span>
+          </div>
+        </div>
+
+        <!-- روابط القائمة الرئيسية للشاشات الكبيرة -->
+        <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
+          <a href="#" data-nav-target="home" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition">الرئيسية</a>
+          <a href="#" data-nav-target="lessons" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition">الدروس والنصوص</a>
+          <a href="#" data-nav-target="curriculum-grammar" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition">نحو المنهج</a>
+          <a href="#" data-nav-target="previous-grammar" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition">تأسيس النحو</a>
+          <a href="#" data-nav-target="placement-test" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition">اختبار المستوى</a>
+          <a href="#" data-nav-target="random-quiz" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition">الاختبار العشوائي</a>
+          <a href="#" data-nav-target="question-bank" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition">بنك الأسئلة</a>
+          <a href="#" data-nav-target="exams" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition">الامتحانات</a>
+          <a href="#" data-nav-target="summaries" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition">الملخصات</a>
+          <a href="#" data-nav-target="vocabulary" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition">المعجم</a>
+          <a href="#" data-nav-target="progress" class="px-3 py-2 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-400 transition flex items-center gap-1 text-amber-700 dark:text-amber-400 font-bold">
+            <i data-lucide="award" class="w-3.5 h-3.5"></i> الإنجازات
+          </a>
+        </nav>
+
+        <!-- أدوات التحكم السريعة (الثيم والصوت وقائمة الموبايل) -->
+        <div class="flex items-center gap-2">
+          <!-- زر الصوت -->
+          <button id="sound-toggle-btn" class="p-2 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 transition" title="كتم / تشغيل المؤثرات الصوتية">
+            <i data-lucide="volume-2" class="w-5 h-5 text-emerald-600"></i>
+          </button>
+
+          <!-- زر الوضع الليلي/النهاري -->
+          <button id="theme-toggle-btn" class="p-2 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 transition" title="تبديل المظهر (ليلي / نهاري)">
+            <i data-lucide="moon" class="w-5 h-5 text-stone-700"></i>
+          </button>
+
+          <!-- زر قائمة الموبايل مع التلميح الإرشادي الترحيبي -->
+          <div class="relative lg:hidden">
+            <button id="mobile-menu-btn" class="p-2 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300">
+              <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Onboarding Tooltip for first-time mobile visitors -->
+            <div id="mobile-menu-tooltip" class="hidden absolute left-0 top-full mt-2.5 z-50 w-64 p-3 rounded-2xl bg-emerald-950 text-white shadow-2xl border border-amber-500/50 transition-all duration-300">
+              <div class="absolute -top-1.5 left-3.5 w-3 h-3 bg-emerald-950 border-t border-l border-amber-500/50 rotate-45"></div>
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-start gap-2">
+                  <span class="text-amber-400 text-sm leading-none mt-0.5">✨</span>
+                  <p class="font-bold text-xs text-stone-100 leading-relaxed">
+                    اضغط هنا لتصفح الدروس وأقسام المنصة
+                  </p>
+                </div>
+                <button type="button" onclick="App.dismissMenuTooltip(event)" class="text-stone-400 hover:text-white p-1 rounded-lg transition" title="إغلاق التلميح">
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- درج قائمة الموبايل المنسدلة -->
+    <div id="mobile-nav-drawer" class="hidden lg:hidden border-t border-[var(--border-subtle)] bg-[var(--bg-surface)] px-4 pt-3 pb-6 space-y-2 text-xs font-bold">
+      <a href="#" data-nav-target="home" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800">الرئيسية</a>
+      <a href="#" data-nav-target="lessons" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800">الدروس والنصوص</a>
+      <a href="#" data-nav-target="curriculum-grammar" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800">نحو المنهج وقواعد الكتابة</a>
+      <a href="#" data-nav-target="previous-grammar" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800">تأسيس النحو التراكمي</a>
+      <a href="#" data-nav-target="placement-test" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800">اختبار تحديد المستوى</a>
+      <a href="#" data-nav-target="random-quiz" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800">مولد الاختبار العشوائي</a>
+      <a href="#" data-nav-target="question-bank" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800">بنك الأسئلة الشامل</a>
+      <a href="#" data-nav-target="exams" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800">نماذج الامتحانات الشاملة</a>
+      <a href="#" data-nav-target="summaries" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800">ملخصات ليلة الامتحان</a>
+      <a href="#" data-nav-target="vocabulary" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800">معجم لغويات المنهج</a>
+      <a href="#" data-nav-target="progress" class="block p-2.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 text-amber-600 font-extrabold">لوحة تقدم الطالب والأوسمة</a>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       حاوية المحتوى المتغير (Main App View Container)
+       ========================================== -->
+  <main id="app-content" class="flex-grow">
+    <!-- يتم بناء الرؤية التفاعلية هنا بواسطة App.renderView() -->
+  </main>
+
+  <!-- ==========================================
+       نافذة تفاصيل مرحلة النحو الكبرى والأنيقة
+       موجودة في المستوى الجذري للـ DOM لمنع أي تقييد بالـ transform أو container
+       ========================================== -->
+  <div id="grammar-stage-modal" class="hidden fixed inset-0 z-50 bg-stone-950/80 flex items-center justify-center p-3 sm:p-5 md:p-6 transition-all duration-300" onclick="if (event.target === this) App.closeGrammarModal()">
+    <div class="bg-white dark:bg-stone-900 w-full max-w-5xl h-[92vh] max-h-[94vh] rounded-2xl md:rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-stone-200 dark:border-stone-700">
+      
+      <!-- Sticky Header -->
+      <div class="p-4 sm:p-5 px-6 border-b border-stone-200 dark:border-stone-800 flex items-center justify-between bg-stone-50 dark:bg-stone-900 shrink-0">
+        <div id="grammar-modal-header" class="flex items-center gap-3"></div>
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-300 transition flex items-center gap-1.5" title="طباعة">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">طباعة</span>
+          </button>
+          <button onclick="App.closeGrammarModal()" class="p-2 rounded-xl text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-200 dark:hover:bg-stone-800 transition" title="إغلاق">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable Body with generous editorial layout -->
+      <div id="grammar-modal-content" class="flex-grow overflow-y-auto p-6 sm:p-8 md:p-10 space-y-8 text-right" style="-webkit-overflow-scrolling: touch;"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       التذييل الرسمي المعتمد (Footer)
+       ========================================== -->
+  <footer class="mt-auto border-t border-[var(--border-subtle)] bg-[var(--bg-surface)] py-6 text-center text-xs text-stone-500 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <div class="font-extrabold text-sm text-stone-800 dark:text-stone-200">
+        صنع بواسطة مصطفى بدر
+      </div>
+      <div class="font-medium text-xs text-stone-600 dark:text-stone-400">
+        تحت إشراف ميس جيهان
+      </div>
+      <div class="text-[11px] text-stone-400 pt-2 border-t border-[var(--border-subtle)] max-w-md mx-auto">
+        منهج اللغة العربية الرسمي المقرّر للصف الأول الثانوي الفني (الفصل الدراسي الأول) • وزارة التربية والتعليم
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       ملفات الجافاسكريبت بترتيبها المعياري
+       ========================================== -->
+  <script src="js/curriculum-data.js"></script>
+  <script src="js/previous-grammar-data.js"></script>
+  <script src="js/question-bank-data.js"></script>
+  <script src="js/exams-data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
